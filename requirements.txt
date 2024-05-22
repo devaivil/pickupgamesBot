@@ -4,3 +4,4 @@ environs==11.0.0
 sqlalchemy==2.0.30
 pydantic_settings
 alembic
+pandas~=2.2.2
