@@ -10,7 +10,7 @@ class Users(Base):
     tg_id = Column(Integer, unique=True)
     tg_username = Column(String, unique=True)
     first_name = Column(String, nullable=False)
-    gender = Column(String, nullable=False)
+    sex = Column(String, nullable=False)
     age = Column(Integer, nullable=False)
 
     @classmethod
@@ -39,6 +39,13 @@ class Games(Base):
 
     parameters = relationship('GamesParameters', backref='games')
 
+    @classmethod
+    def get_games_list(cls, game_ids: list):
+        games_list = session.query(cls).filter(
+            cls.id.in_(game_ids)
+        ).all()
+        return games_list
+
 
 class GamesParameters(Base):
     __tablename__ = 'games_parameters'
@@ -50,3 +57,19 @@ class GamesParameters(Base):
     third_answer = Column(Integer, nullable=False)
     fourth_answer = Column(Integer, nullable=False)
     fifth_answer = Column(Integer, nullable=False)
+
+    @classmethod
+    def get_game_after(cls,
+                       first_answer: int,
+                       second_answer: int,
+                       third_answer: int,
+                       fourth_answer: int,
+                       fifth_answer: int):
+        result = session.query(cls).filter(
+            cls.first_answer == first_answer,
+            cls.second_answer == second_answer,
+            cls.third_answer == third_answer,
+            cls.fourth_answer == fourth_answer,
+            cls.fifth_answer == fifth_answer
+        ).all()
+        return result

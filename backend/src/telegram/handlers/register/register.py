@@ -2,7 +2,7 @@ from aiogram.types import CallbackQuery, Message
 from aiogram.fsm.context import FSMContext
 
 from backend.src.telegram.bot import bot
-from backend.src.telegram.keyboards.reply.reply import user_sex
+from backend.src.telegram.keyboards.reply.reply import question_answer
 from backend.src.telegram.keyboards.inline.inline import lets_game
 from backend.src.telegram.states import States
 from backend.src.telegram.bot import logger
@@ -13,7 +13,8 @@ from backend.src.db.models.models import Users
 async def register(callback: CallbackQuery, state: FSMContext):
     try:
         await bot.send_message(callback.from_user.id,
-                               "Напишите, пожалуйста, свой пол", reply_markup=user_sex())
+                               "Напишите, пожалуйста, свой пол",
+                               reply_markup=question_answer("Мужской", "Женский"))
         await state.set_state(States.get_sex)
     except Exception as e:
         logger.exception("register", e)

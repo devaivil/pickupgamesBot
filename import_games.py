@@ -1,6 +1,8 @@
 import pandas as pd
 import sqlite3
 
+from backend.src.db.models.models import GamesParameters, Games
+
 def import_games():
     try:
         # Чтение данных из Excel
