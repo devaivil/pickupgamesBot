@@ -7,6 +7,7 @@ from backend.src.telegram.handlers.register.start import start
 from backend.src.telegram.handlers.register.register import register, get_user_sex, create_user
 from backend.src.telegram.handlers.another.games import (games_command, games_button, first_question, second_question,
                                                          third_question, fourth_question, fifth_question, result_games)
+from backend.src.telegram.handlers.another.social import social
 from backend.src.telegram.states import States
 
 if __name__ == '__main__':
@@ -33,5 +34,8 @@ if __name__ == '__main__':
     dp.message.register(fourth_question, States.fourth_q)
     dp.message.register(fifth_question, States.fifth_q)
     dp.message.register(result_games, States.result)
+
+    # Регистрация ссылки на официальный сайт
+    dp.message.register(social, Command('socials'))
 
     dp.run_polling(bot)
